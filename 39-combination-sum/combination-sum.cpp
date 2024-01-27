@@ -1,23 +1,26 @@
 class Solution {
 public:
-    void helper(vector<int>&arr,vector<vector<int>>&ans,vector<int>&ds,int ind,int n,int target){
-        if(ind==n){
+    void findcombi(int ind,int target,vector<int> &arr,vector<vector<int>>& ans
+    ,vector<int> &ds){
+        if(ind==arr.size()){
             if(target==0){
-                ans.emplace_back(ds);
+                ans.push_back(ds);
             }
             return;
         }
         if(arr[ind]<=target){
-            ds.emplace_back(arr[ind]);
-            helper(arr,ans,ds,ind,n,target-arr[ind]);
+            ds.push_back(arr[ind]);
+            findcombi(ind,target-arr[ind],arr,ans,ds);
             ds.pop_back();
         }
-        helper(arr,ans,ds,ind+1,n,target);
+        findcombi(ind+1,target,arr,ans,ds);
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int>ds;
+    vector<vector<int>> combinationSum(vector<int>& c, int target) {
         vector<vector<int>>ans;
-        helper(candidates,ans,ds,0,candidates.size(),target);
-        return ans;   
+        vector<int>ds;
+        findcombi(0,target,c,ans,ds);
+        return ans;
+        
+
     }
 };
