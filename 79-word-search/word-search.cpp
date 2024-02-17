@@ -1,17 +1,19 @@
 class Solution {
 public:
-    void search(int &c,vector<vector<char>>& board, string word,int i, int j, int n, int m,vector<vector<int>>&vis,int ind){
+    void search(int &c,vector<vector<char>>& board, string word,int i, int j,vector<vector<int>>&vis,int ind){
         if(ind == word.size()){
             c=1;
             return;
         }
+        int n = board.size();
+        int m = board[0].size();
         if(i>n-1 or j>m-1 or j<0 or i<0 or board[i][j]!=word[ind])return;
         if(!vis[i][j]){
             vis[i][j]=1;
-            search(c,board,word,i,j+1,n,m,vis,ind+1);
-            search(c,board,word,i+1,j,n,m,vis,ind+1);
-            search(c,board,word,i,j-1,n,m,vis,ind+1);
-            search(c,board,word,i-1,j,n,m,vis,ind+1);
+            search(c,board,word,i,j+1,vis,ind+1);
+            search(c,board,word,i+1,j,vis,ind+1);
+            search(c,board,word,i,j-1,vis,ind+1);
+            search(c,board,word,i-1,j,vis,ind+1);
             vis[i][j]=0;
         }
     }
@@ -24,7 +26,7 @@ public:
         //cout<<n<<" "<<m;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                search(c,board,word,i,j,n,m,vis,0);
+                search(c,board,word,i,j,vis,0);
             }
         }
         cout<<c<<" ";
