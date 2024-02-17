@@ -5,25 +5,12 @@ public:
             c=1;
             return;
         }
-        if ((i > n - 1) || (j > m - 1) || (j < 0) || (i < 0) || (board[i][j] != word[ind]))
-            return;
+        if(i>n-1 or j>m-1 or j<0 or i<0 or board[i][j]!=word[ind])return;
         if(!vis[i][j]){
             vis[i][j]=1;
             search(c,board,word,i,j+1,n,m,vis,ind+1);
-            vis[i][j]=0;
-        }
-        if(!vis[i][j]){
-            vis[i][j]=1;
             search(c,board,word,i+1,j,n,m,vis,ind+1);
-            vis[i][j]=0;
-        }
-        if(!vis[i][j]){
-            vis[i][j]=1;
             search(c,board,word,i,j-1,n,m,vis,ind+1);
-            vis[i][j]=0;
-        }
-        if(!vis[i][j]){
-            vis[i][j]=1;
             search(c,board,word,i-1,j,n,m,vis,ind+1);
             vis[i][j]=0;
         }
