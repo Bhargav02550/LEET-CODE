@@ -24,7 +24,9 @@ public:
         //cout<<n<<" "<<m;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                search(c,board,word,i,j,vis,0);
+                if(board[i][j]==word[0]){
+                    search(c,board,word,i,j,vis,0);
+                }
             }
         }
         cout<<c<<" ";
