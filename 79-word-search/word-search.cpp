@@ -7,7 +7,7 @@ public:
         }
         int n = board.size();
         int m = board[0].size();
-        if(i>n-1 or j>m-1 or j<0 or i<0 or board[i][j]!=word[ind])return;
+        if(i>n-1 or j>m-1 or j<0 or i<0 or board[i][j]!=word[ind] or c)return;
         if(!vis[i][j]){
             vis[i][j]=1;
             search(c,board,word,i,j+1,vis,ind+1);
