@@ -7,15 +7,13 @@ public:
         }
         int n = board.size();
         int m = board[0].size();
-        if(i>n-1 or j>m-1 or j<0 or i<0 or board[i][j]!=word[ind] or c)return;
-        if(!vis[i][j]){
-            vis[i][j]=1;
-            search(c,board,word,i,j+1,vis,ind+1);
-            search(c,board,word,i+1,j,vis,ind+1);
-            search(c,board,word,i,j-1,vis,ind+1);
-            search(c,board,word,i-1,j,vis,ind+1);
-            vis[i][j]=0;
-        }
+        if(i>=n or j>=m or j<0 or i<0 or vis[i][j]!=0 or board[i][j]!=word[ind] or c)return;
+        vis[i][j]=1;
+        search(c,board,word,i,j+1,vis,ind+1);
+        search(c,board,word,i+1,j,vis,ind+1);
+        search(c,board,word,i,j-1,vis,ind+1);
+        search(c,board,word,i-1,j,vis,ind+1);
+        vis[i][j]=0;
     }
     bool exist(vector<vector<char>>& board, string word) {
         int n = board.size();
