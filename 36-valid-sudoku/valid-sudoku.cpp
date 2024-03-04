@@ -1,23 +1,27 @@
 class Solution {
 public:
     bool checkcol(vector<vector<char>>& grid, int row, int col, char &val) {
-        for (int i = 0; i < 9; ++i) {
-            if (grid[i][col] == val && i != row) {
-                return false;
+        while (col <= 8) {
+            if (grid[row][col] != val) {
+                col++;
+            } else {
+                break;
             }
         }
-        return true;
+        return (col - 1) == 8;
     }
     
     bool checkrow(vector<vector<char>>& grid, int row, int col, char &val) {
-        for (int j = 0; j < 9; ++j) {
-            if (grid[row][j] == val && j != col) {
-                return false; 
+        while (row <= 8) {
+            if (grid[row][col] != val) {
+                row++;
+            } else {
+                break;
             }
         }
-        return true; 
+        return (row - 1) == 8;
     }
-
+    
     bool checkBox(vector<vector<char>>& grid, int row, int col, char &val) {
         unordered_set<char> seen;
         for (int i = row; i < row + 3; ++i) {
@@ -32,17 +36,20 @@ public:
     }
 
     bool isValidSudoku(vector<vector<char>>& board) {
-        for (int i = 0; i < board.size(); ++i) {
-            for (int j = 0; j < board[i].size(); ++j) {
+        int c = 0, d = 0;
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[0].size(); j++) {
                 if (board[i][j] != '.') {
-                    if (!checkrow(board, i, j, board[i][j]) || 
-                        !checkcol(board, i, j, board[i][j]) || 
-                        !checkBox(board, i - i % 3, j - j % 3, board[i][j])) {
-                        return false;
+                    if (checkrow(board, i + 1, j, board[i][j]) && 
+                        checkcol(board, i, j + 1, board[i][j]) && 
+                        checkBox(board, i - i % 3, j - j % 3, board[i][j])) {
+                        c++;
                     }
+                    d++;
                 }
             }
         }
-        return true;
+        cout << d << " " << c;
+        return d == c;
     }
 };
