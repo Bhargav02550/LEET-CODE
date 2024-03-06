@@ -9,6 +9,9 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
         ListNode *tort = head;
         ListNode *hare = head;
         while(hare!=NULL and hare->next!=NULL){
