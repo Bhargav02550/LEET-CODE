@@ -1,6 +1,9 @@
 class Solution {
 public:
     int maxFrequencyElements(vector<int>& nums) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
         map<int,int>mp;
         for(auto it:nums){
             mp[it]++;
