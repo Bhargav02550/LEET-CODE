@@ -1,25 +1,26 @@
 class Solution {
 public:
+    Solution() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+    }
+
     int getCommon(vector<int>& nums1, vector<int>& nums2) {
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-        cout.tie(0);
-        sort(nums1.begin(),nums1.end());
-        sort(nums2.begin(),nums2.end());
-        int n = nums1.size();
-        int m = nums2.size();
-        int i=0,j=0;
-        while(i<n and j<m){
-            if(nums1[i]<nums2[j]){
-                i++;
+        int i1 = 0;
+        int i2 = 0;
+        while (i1 < nums1.size() && i2 < nums2.size()) {
+            if (nums1[i1] > nums2[i2]) {
+                ++i2;
             }
-            else if(nums1[i]>nums2[j]){
-                j++;
+            else if (nums1[i1] < nums2[i2]) {
+                ++i1;
             }
-            else if(nums1[i]==nums2[j]){
-                return nums1[i];
+            else {
+                return nums1[i1];
             }
+
         }
+
         return -1;
     }
 };
