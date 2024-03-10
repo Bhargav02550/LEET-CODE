@@ -4,16 +4,20 @@ public:
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
         cout.tie(NULL);
-        vector<int> ans;
-        unordered_set<int> numSet(nums2.begin(), nums2.end());
-
-        for (int i : nums1) {
-            if (numSet.find(i) != numSet.end()) {
-                ans.push_back(i);
-                numSet.erase(i);
+        unordered_map<int,int> um;
+        vector<int> res;
+        for(int i = 0; i < nums1.size(); i++)
+        {
+            um[nums1[i]]++;
+        }
+        for(int i = 0;i < nums2.size(); i++)
+        {
+            if(um.find(nums2[i]) != um.end())
+            {
+                res.push_back(nums2[i]);
+                um.erase(nums2[i]);
             }
         }
-
-        return ans;
+        return res;
     }
 };
