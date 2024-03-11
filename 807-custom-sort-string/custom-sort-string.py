@@ -1,15 +1,17 @@
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
-        sa = ""
-        remaining_chars = ""
-        char_freq = {}
-        for char in s:
-            char_freq[char] = char_freq.get(char, 0) + 1
-        for char in order:
-            if char in char_freq:
-                sa += char * char_freq[char]
-                del char_freq[char]
-        for char in char_freq:
-            remaining_chars += char * char_freq[char]
+        counter = defaultdict(int)
+        for c in s:
+            counter[c] += 1
 
-        return sa + remaining_chars
+        sb = []
+        for o in order:
+            for i in range(counter[o]):
+                sb.append(o)
+            counter[o] = 0
+
+        for key in counter:
+                for i in range(counter[key]):
+                    sb.append(key)
+        
+        return ''.join(sb)
