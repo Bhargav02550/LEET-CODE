@@ -11,6 +11,9 @@
 class Solution {
 public:
     ListNode* removeZeroSumSublists(ListNode* head) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
         ListNode *dummy = new ListNode(0);
         dummy->next = head;
         ListNode *temp = dummy;
