@@ -1,35 +1,27 @@
 class Solution {
 public:
-    vector<int> findDiagonalOrder(vector<vector<int>>&mat)
-    {
-         ios_base::sync_with_stdio(false);
-         cin.tie(NULL);
-         cout.tie(NULL);
-         vector<int>ans;
-         map<int,vector<int>>mp;
-         for(int i=0;i<mat.size();i++){
-             for(int j=0;j<mat[0].size();j++){
-                 mp[i+j].push_back(mat[i][j]);
-             }
-         }
-         for(auto it:mp){
-             int val = it.first;
-             if(val%2==0){
-                 vector<int>ma;
-                 ma = it.second;
-                 reverse(ma.begin(),ma.end());
-                 for(auto its:ma){
-                     ans.emplace_back(its);
-                 }
-             }
-             else{
-                 vector<int>ma;
-                 ma = it.second;
-                 for(auto at:ma){
-                     ans.emplace_back(at);
-                 }
-             }
-         }
-         return ans;
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+        vector<int> results;
+        int m = mat.size();
+        if(m==0) return results;
+        int n = mat[0].size();
+        if(n==0) return results;
+        bool up = true;
+        int x=0, y=0;
+        while(true) {
+            results.push_back(mat[x][y]);
+            if(x==m-1 && y==n-1) break; 
+            if(up) {x=x-1;y=y+1;}
+            else {x=x+1;y=y-1;}
+
+            if(y>n-1){ y=n-1; x+=2; up=!up;}
+            else if(x>m-1){ x=m-1; y+=2; up=!up;}
+            else if(y<0){ y+=1;up=!up;}
+            else if(x<0){ x+=1;up=!up;};
+        }
+        return results;
     }
 };
