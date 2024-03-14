@@ -1,55 +1,59 @@
 class Solution {
-public:
-    bool isValid(string curr) {
-        int balance = 0;
-        for(int i=0; i<curr.length(); i++) {
-            if(curr[i] == '(') {
-                balance++;
-            } else if(curr[i] == ')') {
-                if(balance == 0) {
-                    return false;
-                }
-                balance--;
-            }
-        }
-        if(balance > 0) {
-            return false;
-        }
-        return true;
-    }
-    vector<string> removeInvalidParentheses(string s) {
-        ios_base::sync_with_stdio(false);
+ public:
+  vector<string> removeInvalidParentheses(string s) {
+    ios_base::sync_with_stdio(false);
         cin.tie(NULL);
         cout.tie(NULL);
-        vector<string> ans;
-        queue<string> q;
-        q.push(s);
-        bool found = false;
-        set<string> visited;
-        while(!q.empty()) {
-            int size = q.size();
-            for(int i=0; i<size; i++) {
-                string curr = q.front();
-                q.pop();
-                if(isValid(curr)) {
-                    found = true;
-                    ans.push_back(curr);
-                } else {
-                    for(int i=0; i<curr.length(); i++) {
-                        if(curr[i] == '(' || curr[i] == ')') {
-                            string temp = curr.substr(0,i) + curr.substr(i+1);
-                            if(!visited.contains(temp)) {
-                                q.push(temp);
-                                visited.emplace(temp);
-                            }
-                        }
-                    }
-                }
-            }
-            if(found) {
-                break;
-            }
-        }
-        return ans;
+    vector<string> ans;
+    const auto [l, r] = getLeftAndRightCounts(s);
+    dfs(s, 0, l, r, ans);
+    return ans;
+  }
+
+ private:
+  pair<int, int> getLeftAndRightCounts(const string& s) {
+    int l = 0;
+    int r = 0;
+
+    for (const char c : s)
+      if (c == '(')
+        ++l;
+      else if (c == ')') {
+        if (l == 0)
+          ++r;
+        else
+          --l;
+      }
+
+    return {l, r};
+  }
+
+  void dfs(const string& s, int start, int l, int r, vector<string>& ans) {
+    if (l == 0 && r == 0 && isValid(s)) {
+      ans.push_back(s);
+      return;
     }
+
+    for (int i = start; i < s.length(); ++i) {
+      if (i > start && s[i] == s[i - 1])
+        continue;
+      if (l > 0 && s[i] == '(')  // Delete s[i].
+        dfs(s.substr(0, i) + s.substr(i + 1), i, l - 1, r, ans);
+      if (r > 0 && s[i] == ')')  // Delete s[i].
+        dfs(s.substr(0, i) + s.substr(i + 1), i, l, r - 1, ans);
+    }
+  }
+
+  bool isValid(const string& s) {
+    int opened = 0;  // the number of '(' - # of ')'
+    for (const char c : s) {
+      if (c == '(')
+        ++opened;
+      else if (c == ')')
+        --opened;
+      if (opened < 0)
+        return false;
+    }
+    return true;  // opened == 0
+  }
 };
