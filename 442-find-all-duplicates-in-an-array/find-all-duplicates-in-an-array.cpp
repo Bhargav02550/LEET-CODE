@@ -1,21 +1,27 @@
+#include <bit>
+#include <vector>
+
 class Solution {
 public:
-    vector<int> findDuplicates(vector<int>& arr) {
+    vector<int> findDuplicates(vector<int>& nums)
+    {
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
-        cout.tie(NULL);
-        vector<int>ans;
-        unordered_map<int,int>mp;
-        int n=arr.size();
-        for(int i=0;i<n;i++){
-            mp[arr[i]]++;
-        }
-        for(auto it:mp){
-            if(it.second>1){
-                ans.emplace_back(it.first);
+
+        std::bitset<100001> cache;
+
+        std::vector<int> result;
+        for (const int& n : nums) {
+            bool duplicate = cache.test(n);
+
+            if (duplicate) {
+                result.push_back(n);
+            }
+            else {
+                cache.set(n);
             }
         }
-        //sort(ans.begin(),ans.end());
-        return ans;
+
+        return result;
     }
 };
